@@ -293,7 +293,7 @@
                     retro_id: queryValue || "no identificado"
                 };
 
-                let res = await axios.post('http://localhost:1337/api/players', payload);
+                let res = await axios.post('http://ec2-18-231-160-247.sa-east-1.compute.amazonaws.com:1337/api/players', payload);
 
                 let data = res.data;
                 alert(data);
