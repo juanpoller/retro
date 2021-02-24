@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sonqo Healt Check</title>
+    <link rel="shortcut icon" href="naranja.png" />
+    <link rel="stylesheet" href="estilo.css">
+    <script src="hexagon-chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <style>
+        body,
+        li {
+            font-family: 微软雅黑, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        #base_container {
+            padding: 100px
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- prueba -->
+    <h1>SELECCIONA TU PERSONAJE</h1>
+    <ul id="perso">
+        <li class="t1"></li>
+        <li class="t2"></li>
+        <li class="t3"></li>
+        <li class="t4"></li>
+        <li class="t5"></li>
+        <li class="t6"></li>
+        <li class="t7"></li>
+        <li class="t8"></li>
+        <li class="t9"></li>
+    </ul>
+
+    <audio autobuffer="autobuffer" autoplay="autoplay" loop="true">
+        <source src="http://aidimda.com/js/select.ogg" type="audio/ogg">
+    </audio>
+    <!--  -->
+
+    <div id="base_container" class="container-fluid text-center">
+        <h1>NOMBRE</h1>
+        <input type="text" id="nombre">
+        <div class="col-md-6">
+            <canvas id="demo"></canvas>
+        </div>
+
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped table-hover">
+                <!-- <thead>
+                        <h4>Progress of <b><a href="https://www.dragondoor.com/b41/" target="_blank">Convict Conditioning</a></b></h4>
+                    </thead> -->
+
+
+                <thead>
+                    <h4> <br>MI NIVEL DE HABILIDADES</br> </h4>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th class="text-center">KEY</th>
+                        <th class="text-center">SKILL</th>
+                        <th class="text-center">NIVEL</th>
+                    </tr>
+                    <tr>
+                        <td>PA</td>
+                        <td>Proactividad</td>
+                        <td><input type='number' min="1" max="5" class="form-control" id="OWNERSHIP" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                    <tr>
+                        <td>AD</td>
+                        <td>Atención a los detalles</td>
+                        <td><input type='number' min="0" max="5" class="form-control" id="DETALLES" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                    <tr>
+                        <td>QA</td>
+                        <td>Calidad de Código</td>
+                        <td><input type='number' min="0" max="5" class="form-control" id="QUALITY" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                    <tr>
+                        <td>ET</td>
+                        <td>Estimación</td>
+                        <td><input type='number' min="0" max="5" class="form-control" id="ESTIMATION" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                    <tr>
+                        <td>RS</td>
+                        <td>Resiliencia</td>
+                        <td><input type='number' min="0" max="5" class="form-control" id="RESILIENCE" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                    <tr>
+                        <td>AT</td>
+                        <td>Adaptabilidad</td>
+                        <td><input type='number' min="0" max="5" class="form-control" id="ADAPT" value=0
+                                onclick="puntosDisponibles(disponibles)" /></td>
+                    </tr>
+                </tbody>
+                <div>
+                    <tr>
+                        <th class="text-center"> </th>
+                        <th class="text-center">Puntos Disponibles</th>
+                        <th class="text-center" id="disp">15</th>
+                    </tr>
+                </div>
+            </table>
+            <button class="btn btn-lg btn-warning btn-block" onclick="makeGetRequest()" id="botonazo">Submit</button>
+        </div>
+
+    </div>
+    <script>
+        var disponibles = 15;
+        function getValueByID(id) {
+            return document.getElementById(id).value;
+        }
+
+        function fresh() {
+            var str = getValueByID('OWNERSHIP') / 5;
+            var agi = getValueByID('DETALLES') / 5;
+            var mag = getValueByID('QUALITY') / 5;
+            var hp = getValueByID('ESTIMATION') / 5;
+            var mp = getValueByID('RESILIENCE') / 5;
+            var def = getValueByID('ADAPT') / 5;
+
+            hexagon.init('demo', 240, ['   PA', '    AD', '    QA', '    ET', 'RS', 'AT']);
+            hexagon.draw([str, agi, mag, hp, mp, def]);
+        }
+        // mio
+        function puntosDisponibles(disponibles) {
+            var str = Number(getValueByID('OWNERSHIP'));
+            var agi = Number(getValueByID('DETALLES'));
+            var mag = Number(getValueByID('QUALITY'));
+            var hp = Number(getValueByID('ESTIMATION'));
+            var mp = Number(getValueByID('RESILIENCE'));
+            var def = Number(getValueByID('ADAPT'));
+
+            //str
+            if (str > 5) {
+                var inputNumber = document.getElementById("OWNERSHIP");
+                inputNumber.value = 5;
+                str = 5;
+                fresh();
+            } else if (str < 0) {
+                var inputNumber = document.getElementById("OWNERSHIP");
+                inputNumber.value = 0;
+                str = 0;
+                fresh()
+            }
+            //agi
+            if (agi > 5) {
+                var inputNumber = document.getElementById("DETALLES");
+                inputNumber.value = 5;
+                agi = 5;
+                fresh();
+            } else if (agi < 0) {
+                var inputNumber = document.getElementById("DETALLES");
+                inputNumber.value = 0;
+                agi = 0;
+                fresh()
+            }
+            //mag
+            if (mag > 5) {
+                var inputNumber = document.getElementById("QUALITY");
+                inputNumber.value = 5;
+                mag = 5;
+                fresh();
+            } else if (mag < 0) {
+                var inputNumber = document.getElementById("QUALITY");
+                inputNumber.value = 0;
+                mag = 0;
+                fresh()
+            }
+            //hp
+            if (hp > 5) {
+                var inputNumber = document.getElementById("ESTIMATION");
+                inputNumber.value = 5;
+                hp = 5;
+                fresh();
+            } else if (hp < 0) {
+                var inputNumber = document.getElementById("ESTIMATION");
+                inputNumber.value = 0;
+                hp = 0;
+                fresh()
+            }
+            //mp
+            if (mp > 5) {
+                var inputNumber = document.getElementById("RESILIENCE");
+                inputNumber.value = 5;
+                mp = 5;
+                fresh();
+            } else if (mp < 0) {
+                var inputNumber = document.getElementById("RESILIENCE");
+                inputNumber.value = 0;
+                mp = 0;
+                fresh()
+            }
+            //def
+            if (def > 5) {
+                var inputNumber = document.getElementById("ADAPT");
+                inputNumber.value = 5;
+                def = 5;
+                fresh();
+            } else if (def < 0) {
+                var inputNumber = document.getElementById("ADAPT");
+                inputNumber.value = 0;
+                def = 0;
+                fresh()
+            }
+
+
+            var total = str + agi + mag + hp + mp + def;
+            console.log("total", total)
+            disponibles = disponibles - total;
+            document.getElementById('disp').innerHTML = disponibles;
+            fresh()
+            return disponibles
+        }
+
+        window.onload = function () {
+            fresh();
+        
+        };
+        window.onclick = function () {
+            fresh();
+
+        };
+
+        // window.onclick = function(event) {
+        //     
+
+        //     var D = document.getElementById('disp').innerHTML;
+        //     D.setAttribute('disp', dispo);
+        //     alert(disponibles)
+        // }
+
+        //
+        fresh();
+        //Rebound of tutorial for Adobe AE by @lonearcherfilms
+        $('li').on('click', function (e) {
+            e.preventDefault();
+            $('li').removeClass('active');
+
+            $(this).addClass('active');
+            var $blink = $(this);
+            var i = 0;
+            var b = setInterval(function () {
+                $blink.toggleClass("blink");
+                i++;
+                if (i == 6)
+                    clearInterval(b);
+            }, 200);
+            $('audio').remove();
+            $('<audio controls="controls" autobuffer="autobuffer" autoplay="autoplay"> <source src="./images/sword.mp3"  type="audio/mp3"> </audio>').appendTo('footer');
+        });
+
+        async function makeGetRequest() {
+            fresh();
+            console.log(getValueByID('nombre'))
+            if (getValueByID('nombre') === "" || getValueByID('nombre') === undefined) {
+                alert("ingresa Un Nombre")
+                return
+            }
+            var dispon = $("#disp").text()
+            if (dispon > 1) {
+
+                alert("Usa todos tus puntos disponibles hasta llegar a 0")
+                return
+            } else if (dispon < 0) {
+                alert("Usaste demaciados puntos, devuelve algunos hasta llegar a 0")
+                return
+            }
+            else {
+                var laquery = new URLSearchParams(document.location.search);
+        var queryValue = laquery.get('retro_id')
+                let payload = {
+                    ownership: Number(getValueByID('OWNERSHIP')),
+                    details: Number(getValueByID('DETALLES')),
+                    quality: Number(getValueByID('QUALITY')),
+                    estimation: Number(getValueByID('ESTIMATION')),
+                    resilience: Number(getValueByID('RESILIENCE')),
+                    adaptation: Number(getValueByID('ADAPT')),
+                    name: getValueByID('nombre'),
+                    retro_id: queryValue || "no identificado"
+                };
+
+                let res = await axios.post('http://localhost:1337/api/players', payload);
+
+                let data = res.data;
+                alert(data);
+                document.getElementById("botonazo").removeAttribute("onclick");;
+            }
+        }
+
+// ;
+
+    </script>
+    <footer>
+        <!-- KONAMI &copy; 2001<br>
+    @nodws -->
+    </footer>
+</body>
+
+</html>
