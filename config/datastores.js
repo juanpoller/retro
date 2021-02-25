@@ -49,7 +49,7 @@ module.exports.datastores = {
     *                                                                          *
     ***************************************************************************/
    adapter: 'sails-mysql',
-   url: 'mysql://admin:a1s2d3f4@database-1.cd6fmzrcjt0j.sa-east-1.rds.amazonaws.com:3306/sonqo',
+   url: 'acavalabasededatos',
   },
 
 

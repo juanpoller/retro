@@ -19,10 +19,14 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'assets/index.html' },
+  // '/': { view: 'assets/index.html' },
+  // '/retro': { view: 'assets/promedio.html' },
 
   'POST /api/players': 'PlayerController.create',
   'GET /api/players': 'PlayerController.get',
+  'GET /api/players/:id': 'PlayerController.getById',
+  'GET /api/players/retro/:id': 'PlayerController.getByRetroId',
+  'GET /api/players/retro/:id/promedio': 'PlayerController.getByRetroIdPromedio',
   'post /query': 'PlayerController.query',
 
   /***************************************************************************

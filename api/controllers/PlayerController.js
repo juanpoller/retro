@@ -33,21 +33,14 @@ module.exports = {
       },
       getById: (req, res) => {
         try {
-          let auth = tokenDecoder(req.header('Authorization'));
-          if (auth.data.id != req.param('id')) {
-            res.status('forbidden');
-            res.send({
-              'code': 'forbidden',
-              'message': 'Wrong logged user'
-            });
-          } else {
-            Alumno.findOne(
+         
+            Player.findOne(
               //para el get by pasamos un json con el parametro que necesitamos
               {
                 id: req.param('id')
               })
-              .then((alumno) => {
-                if (!alumno || alumno.length === 0) {
+              .then((player) => {
+                if (!player || player.length === 0) {
                   sails.log.debug(err);
                   res.status(setStatus(err.code));
                   return res.send({
@@ -55,16 +48,7 @@ module.exports = {
                     'message': err.message
                   });
                 }
-                return res.send({
-                  id: alumno.id,
-                  name: alumno.name,
-                  email: alumno.email,
-                  area_code: alumno.area_code,
-                  phone_number: alumno.phone_number,
-                  image: alumno.image,
-                  occupation: alumno.occupation,
-                  financial_knowledge: alumno.financial_knowledge,
-                });
+                return res.send(player);
               })
               .catch((err) => {
                 sails.log.debug(err);
@@ -74,7 +58,6 @@ module.exports = {
                   'message': err.message
                 });
               });
-          }
         } catch (err) {
           sails.log.debug(err);
           res.status(setStatus(err.code));
@@ -126,6 +109,50 @@ module.exports = {
 
         });
     },
+    getByRetroId: (req, res) => {
+      let retroId = req.param('id');
+      let query = "select * from player where retro_id = '" + retroId +"'"
+      sails.sendNativeQuery(query, [1], (
+          err, rawResult
+      ) => {
+          if (err) {
+              sails.log.debug(err);
+              res.status(setStatus(err.code));
+              return res.send({
+                  'code': err.code,
+                  'message': err.message
+              });
+          }
+
+          return res.send(rawResult.rows);
+
+      });
+  },
+  getByRetroIdPromedio: (req, res) => {
+    let retroId = req.param('id');
+    let query = "select retro_id, " +
+    "(select COUNT(ownership) from player c2 where c2.retro_id =  '" + retroId +
+    "') as ownership," +
+    "(select COUNT(details) from player c2 where c2.retro_id =  '" + retroId +
+    "') as details" +
+    " from player where retro_id = '" + retroId +"'"
+    console.log(query)
+    sails.sendNativeQuery(query, [1], (
+        err, rawResult
+    ) => {
+        if (err) {
+            sails.log.debug(err);
+            res.status(setStatus(err.code));
+            return res.send({
+                'code': err.code,
+                'message': err.message
+            });
+        }
+
+        return res.send(rawResult.rows);
+
+    });
+},
 };
 
 function setStatus(code) {

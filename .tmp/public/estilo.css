@@ -1,0 +1,141 @@
+@import url(https://fonts.googleapis.com/css?family=VT323);
+
+body{
+  font-family: 'VT323';
+  text-align:center;
+}
+footer{
+    clear:both;
+    color:#aaa;
+    padding:30px
+  }
+audio{display:none}
+#perso {
+    padding-right: 11%;
+    padding: 30px ;
+}
+#nombre {
+    position:relative;
+    left:-100px;
+}
+/* #base_container {
+    /* position:relative; */
+    /* left:-90px; 
+} */
+h1{
+  color:rgb(0, 0, 0);
+  font-size:46px;
+  text-shadow:2px 2px 0 rgb(109, 109, 109);
+  font-weight:normal;
+  position:relative;
+  padding:30px;
+  left:-100px;
+  top:-2px
+}
+ul{
+  max-width:800px;
+  margin:0 auto;
+  padding:0;
+  list-style:none;
+}
+ul li{
+  display:block;
+  background:url(./images/1b.png) top center no-repeat;
+  width:64px;
+  height:364px;
+  padding:0;
+  cursor:pointer;
+  float:left;
+  position:relative
+}
+ul li::before{
+ 
+  content:" ";
+  display:block;
+  width:64px;
+  height:364px;
+  position:absolute;
+  left:2px;
+  top:-2px
+}
+.t2{
+  background-image:url(./images/2b.png)
+}
+.t3{
+  background-image:url(./images/3b.png)
+}
+.t4{
+  background-image:url(./images/4b.png)
+}
+.t5{
+  background-image:url(./images/5b.png)
+}
+.t6{
+  background-image:url(./images/6b.png)
+}
+.t7{
+  background-image:url(./images/7b.png)
+}
+.t8{
+  background-image:url(./images/8b.png)
+}
+.t9{
+  background-image:url(./images/9b.png)
+}
+
+.t1:hover, .t1.active{
+  background-image:url(./images/1a.png);
+  
+}
+.t1:hover::before, .t1.active::before{
+   background: url(./images/1a.png) 0 0 no-repeat;
+}
+.t2:hover, .t2.active{
+  background-image:url(./images/2a.png)
+}
+.t2:hover::before, .t2.active::before{
+   background: url(./images/2a.png) 0 0 no-repeat;
+}
+.t3:hover, .t3.active{
+  background-image:url(./images/3a.png)
+}
+.t3:hover::before, .t3.active::before{
+   background: url(./images/3a.png) 0 0 no-repeat;
+}
+.t4:hover, .t4.active{
+  background-image:url(./images/4a.png)
+}
+.t4:hover::before, .t4.active::before{
+   background: url(./images/4a.png) 0 0 no-repeat;
+}
+.t5:hover, .t5.active{
+  background-image:url(./images/5a.png)
+}
+.t5:hover::before, .t5.active::before{
+   background: url(./images/5a.png) 0 0 no-repeat;
+}.t6:hover, .t6.active{
+  background-image:url(./images/6a.png)
+}
+.t6:hover::before, .t6.active::before{
+   background: url(./images/6a.png) 0 0 no-repeat;
+}
+.t7:hover, .t7.active{
+  background-image:url(./images/7a.png)
+}
+.t7:hover::before, .t7.active::before{
+   background: url(./images/7a.png) 0 0 no-repeat;
+}
+.t8:hover, .t8.active{
+  background-image:url(./images/8a.png)
+}
+.t8:hover::before, .t8.active::before{
+   background: url(./images/8a.png) 0 0 no-repeat;
+}
+.t9:hover, .t9.active{
+  background-image:url(./images/9a.png)
+}
+.t9:hover::before, .t9.active::before{
+   background: url(./images/9a.png) 0 0 no-repeat;
+}
+
+.blink{ opacity:0.1 }
